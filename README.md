@@ -8,12 +8,10 @@ For the generation of the Sentinel-2 L1C mosaic, the code uses the s2cloudless p
 
 s2cloudless can be slow for very big images, it would be very usefull to find a way to optimize it. I have a couple of ideas of how to do it but if someone is interested to contribute in this direction you are welcome.
 
-## Installation
+#### Supported layers: 
 
-```
-git clone https://github.com/DeepCube-org/uc4b_hopsworks_3.git
-cd uc4b_hopsworks_3/mosaic
-pip install -e .
-```
-
-#### Supported layers: ESA WorldCover, Sentinel-1, Sentinle-2 L1C, Copernicus DEM 
+- ESA WorldCover
+- Sentinel-1 GRD
+- Sentinle-2 L1C
+- Copernicus DEM
+- DynamicWorld 
