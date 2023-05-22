@@ -1,3 +1,8 @@
+"""
+Extraction of the Copernicus DEM.
+https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model
+"""
+
 from sentinelhub import SHConfig, CRS, BBox, MimeType, SentinelHubRequest, DataCollection, bbox_to_dimensions, BBoxSplitter, SentinelHubDownloadClient, MosaickingOrder
 import sentinelhub
 from pathlib import Path

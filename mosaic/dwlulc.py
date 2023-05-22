@@ -1,3 +1,7 @@
+"""
+Extraction of the Dynamic World.
+https://dynamicworld.app/
+"""
 
 import tensorflow as tf
 import numpy as np

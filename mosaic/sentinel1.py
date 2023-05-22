@@ -1,3 +1,8 @@
+"""
+Extraction of the Sentinel-1.
+https://sentinels.copernicus.eu/web/sentinel/missions/sentinel-1
+"""
+
 from sentinelhub.geometry import Geometry
 from sentinelhub.time_utils import parse_time
 from mosaic import evalscripts

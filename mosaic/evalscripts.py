@@ -1,3 +1,11 @@
+"""
+Scripts used for extraction of the data from SentinelHub.
+"""
+
+
+"""
+Sentinel-1
+"""
 SENTINEL1 = """
     //VERSION=3
 
@@ -22,7 +30,9 @@ SENTINEL1 = """
     }
 """
 
-
+"""
+Sentinel-2
+"""
 SENTINEL2 = """
     //VERSION=3
     function setup() {
@@ -56,7 +66,9 @@ SENTINEL2 = """
     }
 """
 
-
+"""
+Copernicus DEM
+"""
 DEM_COPERNICUS_30 = """
 //VERSION=3
 function setup() {
@@ -75,7 +87,9 @@ function evaluatePixel(sample) {
 }
 """
 
-
+"""
+ESA World Cover
+"""
 WORLDCOVER = """
 //VERSION=3
 

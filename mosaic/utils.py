@@ -1,5 +1,10 @@
+"""
+Utility functions used by the other modules.
+"""
+
 import subprocess
 import os
+
 
 
 def split_interval(start, end, n):

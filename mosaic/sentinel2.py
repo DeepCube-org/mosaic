@@ -1,3 +1,9 @@
+"""
+Extraction of the Sentinel-2.
+https://sentinel.esa.int/web/sentinel/missions/sentinel-2
+"""
+
+
 from sentinelhub import SHConfig, CRS, BBox, MimeType, SentinelHubRequest, DataCollection, bbox_to_dimensions, BBoxSplitter, SentinelHubDownloadClient, MosaickingOrder
 import sentinelhub
 from pathlib import Path
@@ -13,6 +19,10 @@ NO_DATA = -9999
 RESOLUTION = 10
 CRS = sentinelhub.CRS.WGS84
 
+
+"""
+
+"""
 def download(bbox, time_interval, output, split_shape=(10, 10)):
 
     def get_image(bbox, resolution):

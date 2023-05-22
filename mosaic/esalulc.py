@@ -1,3 +1,8 @@
+"""
+Extraction of the ESA World Cover.
+https://esa-worldcover.org/en
+"""
+
 from sentinelhub import SHConfig, BBox, MimeType, SentinelHubRequest, DataCollection, bbox_to_dimensions, BBoxSplitter, SentinelHubDownloadClient, MosaickingOrder
 import sentinelhub
 from pathlib import Path
