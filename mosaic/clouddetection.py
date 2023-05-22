@@ -6,7 +6,8 @@ from s2cloudless import S2PixelCloudDetector
 
 class Inference:
     """
-    Extraction of a cloud mask from a Sentinel-2 image in input.
+    Extraction of a cloud mask from a Sentinel-2 image in input. 
+    The wrapper is using s2cloudless: https://github.com/sentinel-hub/sentinel2-cloud-detector
     """
     def __init__(self, all_bands=False):
         self.model = S2PixelCloudDetector(threshold=None, average_over=0, dilation_size=0, all_bands=all_bands)

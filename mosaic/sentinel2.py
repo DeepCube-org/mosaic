@@ -20,9 +20,6 @@ RESOLUTION = 10
 CRS = sentinelhub.CRS.WGS84
 
 
-"""
-
-"""
 def download(bbox, time_interval, output, split_shape=(10, 10)):
 
     def get_image(bbox, resolution):

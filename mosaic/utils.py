@@ -6,7 +6,9 @@ import subprocess
 import os
 
 
-
+"""
+Split a temporal interval in a set of sub interval having similar size.
+"""
 def split_interval(start, end, n):
     if(n>1):
         n_chunks = n+1
@@ -17,6 +19,9 @@ def split_interval(start, end, n):
         slots = [(start.date().isoformat(), end.date().isoformat())]
     return(slots)
 
+"""
+Retry multiple time the execution of a function with a set of parameters in input.
+"""
 def shretry(max_retry, fun, **args):
     retry = 0
     while True:
@@ -30,7 +35,9 @@ def shretry(max_retry, fun, **args):
                 raise Exception('Error')
 
 
-#Supports only local files
+"""
+Wrapper around the execution of the merge of multiple images, using the GDAL library.
+"""
 def gdal_merge(tiffs, bbox, output, dstnodata = None):
 
     filelist = 'input.txt'
