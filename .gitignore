@@ -165,3 +165,6 @@ deepcube.txt
 test_dir
 *.ipynb
 *.tiff
+*.xml
+
+sentinelhub_config.py

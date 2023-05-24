@@ -115,7 +115,15 @@ def _get_image(bbox, time_interval, resolution):
                 data_collection=DataCollection.SENTINEL1_IW_DES,
                 time_interval=time_interval,
                 mosaicking_order=MosaickingOrder.MOST_RECENT,
-                other_args = {"dataFilter":{"demInstance":"COPERNICUS_30"},"processing":{"orthorectify":True,"backCoeff":"GAMMA0_ELLIPSOID"}}
+                other_args = {
+                    "dataFilter": {
+                        "demInstance":"COPERNICUS_30"
+                    },
+                    "processing": {
+                        "orthorectify":True,
+                        "backCoeff":"GAMMA0_ELLIPSOID"
+                    }
+                }
             )
         ],
         responses=[SentinelHubRequest.output_response("default", MimeType.TIFF)],

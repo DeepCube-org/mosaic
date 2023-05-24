@@ -84,9 +84,11 @@ def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10), ma
             bands = np.array(bands).transpose((1,2,0))
             if(mask_clouds==True):
                 tmp = bands.copy()
-                tmp[NO_DATA] = 0
+                tmp[tmp==NO_DATA] = 0
                 tmp = tmp.astype(np.float32)/10000.0
-                cloud_prob = model.predict(tmp)
+                import pdb
+                pdb.set_trace()
+                cloud_prob = model.predict(tmp[np.newaxis, ...])[0, :, :]
                 bands[cloud_prob > 0.4] = NO_DATA
 
             bands[mask==0] = NO_DATA
@@ -128,14 +130,23 @@ if(__name__=='__main__'):
 
     import datetime
     bbox = (
-    46.00, 
-    -16.10,
-    46.02, 
-    -16.15,
+        46.00, 
+        -16.15,
+        46.02, 
+        -16.01,
     )
     
     start = datetime.datetime(2021, 10, 5)
-    end = datetime.datetime(2021, 10, 7)
-    n = 1
+    end = datetime.datetime(2021, 12, 7)
+    n = 5
     
-    mosaic(bbox = bbox, start = start, end = end, n = n, output = './mosaic2.tiff', split_shape = (2,2), mask_clouds = False)
+    mosaic(bbox = bbox, start = start, end = end, n = n, output = './mosaic.tiff', split_shape = (4,4), mask_clouds = True)
+    
+    import rasterio
+    import matplotlib.pyplot as plt
+    
+    with rasterio.open('./mosaic.tiff', 'r') as file:
+        bands = file.read()
+        plt.imshow(bands[[3, 2, 1], :, :].transpose((1,2,0))/3000, vmin=0, vmax=1)
+        plt.show()
+
