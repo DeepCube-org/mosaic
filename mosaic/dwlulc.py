@@ -11,13 +11,15 @@ from mosaic.clouddetection import Inference as CloudDetection
 from dynamicworld.inference import Inference as LULCDetection
 import os
 import shutil
+import rasterio
+
 from mosaic.utils import split_interval
 
 NO_DATA = 240
 
 
 
-def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10), mask_clouds = True):
+def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10)):
     slots = split_interval(start, end, n)
     
     landcover = LULCDetection()
@@ -107,7 +109,7 @@ if __name__=='__main__':
     end = datetime.datetime(2021, 12, 7)
     n = 2
     
-    mosaic(bbox = bbox, start = start, end = end, n = n, output = './mosaic.tiff', split_shape = (2,2), mask_clouds = False)
+    mosaic(bbox = bbox, start = start, end = end, n = n, output = './mosaic.tiff', split_shape = (2,2))
 
     with rasterio.open('./mosaic.tiff', 'r') as file:
         bands = file.read()

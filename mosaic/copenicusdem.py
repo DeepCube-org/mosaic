@@ -16,7 +16,7 @@ NO_DATA = -9999
 RESOLUTION = 10
 CRS = sentinelhub.CRS.WGS84
 
-def download(bbox, time_interval, output):
+def download(bbox, time_interval, output, split_shape=(10, 10)):
 
     def get_image(bbox, resolution):
         size = bbox_to_dimensions(bbox, resolution=resolution)
@@ -39,7 +39,7 @@ def download(bbox, time_interval, output):
     
 
     bbox_splitter = BBoxSplitter(
-        [ BBox(bbox, crs=CRS) ], crs = CRS, split_shape = (10, 10)
+        [ BBox(bbox, crs=CRS) ], crs = CRS, split_shape = split_shape
     )  # bounding box will be split into grid of 5x4 bounding boxes
 
     bbox_list = bbox_splitter.get_bbox_list()
@@ -53,9 +53,9 @@ def download(bbox, time_interval, output):
     gdal_merge(str_tiffs, bbox, output=output, dstnodata=NO_DATA)
 
 
-def mosaic(bbox, start, end, output, max_retry = 10):
+def mosaic(bbox, start, end, output, max_retry = 10, split_shape=(10,10)):
 
-    shretry(max_retry, download, bbox = bbox, time_interval=(start, end), output = output)
+    shretry(max_retry, download, bbox = bbox, time_interval=(start, end), output = output, split_shape = split_shape)
 
     with rasterio.open(output, 'r') as file:
         bands = file.read()
