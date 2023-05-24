@@ -53,9 +53,10 @@ def download(bbox, time_interval, output, split_shape=(10, 10)):
     data_folder = sh_requests[0].data_folder
     tiffs = [Path(data_folder) / req.get_filename_list()[0] for req in sh_requests]
     str_tiffs = [str(tiff) for tiff in tiffs]
+
     gdal_merge(str_tiffs, bbox, output=output, dstnodata=NO_DATA)
-    #for str_tiff in str_tiffs:
-    #    os.remove(str_tiff)
+    for str_tiff in str_tiffs:
+        os.remove(str_tiff)
 
 
 def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10), mask_clouds = True):
@@ -78,7 +79,7 @@ def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10), ma
             mask  = bands[-1,  :, :]
             bands = bands[:-1, :, :]
             profile = file.profile
-        
+
         profile.update(count = bands.shape[0])
         with rasterio.open(image, 'w', **profile) as file:
             bands = np.array(bands).transpose((1,2,0))
