@@ -10,8 +10,8 @@ if __name__=="__main__":
     args = parser.parse_args()
 
     config = SHConfig()
-    config.sh_client_id = args.sh_client_id 
-    config.sh_client_secret = args.sh_client_secret
+    config.sh_client_id = args.id 
+    config.sh_client_secret = args.secret
     config.save("default-profile")
 
     print(config)
