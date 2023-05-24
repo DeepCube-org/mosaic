@@ -11,6 +11,7 @@ import rasterio
 import numpy as np
 import datetime
 from mosaic.utils import shretry, gdal_merge
+import os
 
 NO_DATA = 240
 RESOLUTION = 10
@@ -52,7 +53,9 @@ def download(bbox, time_interval, output):
     tiffs = [Path(data_folder) / req.get_filename_list()[0] for req in sh_requests]
     str_tiffs = [str(tiff) for tiff in tiffs]
     gdal_merge(str_tiffs, bbox, output=output, dstnodata=NO_DATA)
-
+    
+    for str_tiff in str_tiffs:
+        os.remove(str_tiff)
     
 def mosaic(bbox, start, end, output, max_retry=10):
 
@@ -102,3 +105,11 @@ if(__name__=='__main__'):
     
 
     mosaic(bbox = bbox, start = start, end = end, output = './mosaic.tiff')
+
+    import rasterio
+    import matplotlib.pyplot as plt
+
+    with rasterio.open('./mosaic.tiff', 'r') as file:
+        bands = file.read()
+        plt.imshow(bands[0, :, :], vmin=0, vmax=10)
+        plt.savefig('./mosaic.png')
