@@ -74,7 +74,7 @@ def mosaic(bbox, start, end, output, max_retry=10):
 
         import pdb
         pdb.set_trace()
-        
+
         bands[bands == 0] = NO_DATA
         bands[bands == 10] = 0
         bands[bands == 20] = 1
@@ -104,7 +104,7 @@ if(__name__=='__main__'):
         -16.01,
     )
 
-    start = datetime.datetime(2021, 10, 5)
+    start = datetime.datetime(2020, 10, 5)
     end = datetime.datetime(2021, 12, 7)
     
 
