@@ -71,6 +71,10 @@ def mosaic(bbox, start, end, output, max_retry=10):
     profile.update(count = bands.shape[0])
     with rasterio.open(output, 'w', **profile) as file:
         bands = np.array(bands).transpose((1,2,0))
+
+        import pdb
+        pdb.set_trace()
+        
         bands[bands == 0] = NO_DATA
         bands[bands == 10] = 0
         bands[bands == 20] = 1
@@ -94,14 +98,14 @@ if(__name__=='__main__'):
     
     import datetime
     bbox = (
-        46.16, 
-        -16.15, 
-        46.51, 
-        -15.58
+        46.00, 
+        -16.15,
+        46.02, 
+        -16.01,
     )
 
-    start = datetime.datetime(2019, 3, 1)
-    end = datetime.datetime(2019, 12, 31)
+    start = datetime.datetime(2021, 10, 5)
+    end = datetime.datetime(2021, 12, 7)
     
 
     mosaic(bbox = bbox, start = start, end = end, output = './mosaic.tiff')

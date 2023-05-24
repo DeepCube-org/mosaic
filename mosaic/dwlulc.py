@@ -20,7 +20,7 @@ NO_DATA = 240
 def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10), mask_clouds = True):
     slots = split_interval(start, end, n)
     
-    landcover = LULCDetection(all_bands=True)
+    landcover = LULCDetection()
     clouddetection = CloudDetection(all_bands=True)
 
 
@@ -45,7 +45,7 @@ def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10), ma
             # plt.imshow(bands[:, :, [3,2,1]].clip(0,3000)/3000)
             # plt.show()
 
-            cloud_prob = clouddetection.predict(bands.astype(np.float32)/10000.0)
+            cloud_prob = clouddetection.predict(bands.astype(np.float32)[np.newaxis, ...]/10000.0)[0, :, :]
             bands = landcover.predict(bands)
 
             mask = mask>0
@@ -95,16 +95,21 @@ if __name__=='__main__':
     import rasterio
     import matplotlib.pyplot as plt
     import datetime
-
+    
     bbox = (
-    46.00, 
-    -16.10,
-    46.12, 
-    -16.25,
+        46.00, 
+        -16.15,
+        46.07, 
+        -16.01,
     )
     
     start = datetime.datetime(2021, 10, 5)
-    end = datetime.datetime(2021, 10, 25)
-    n = 5
+    end = datetime.datetime(2021, 12, 7)
+    n = 2
     
     mosaic(bbox = bbox, start = start, end = end, n = n, output = './mosaic.tiff', split_shape = (2,2), mask_clouds = False)
+
+    with rasterio.open('./mosaic.tiff', 'r') as file:
+        bands = file.read()
+        plt.imshow(bands[0, :, :], vmin=0, vmax=10)
+        plt.savefig('./mosaic.png')

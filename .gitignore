@@ -166,5 +166,7 @@ test_dir
 *.ipynb
 *.tiff
 *.xml
+*.png
+*.jpg
 
 sentinelhub_config.py

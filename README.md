@@ -19,5 +19,12 @@ s2cloudless can be slow for very big images, it would be very usefull to find a 
 
 #### Installation
 
-docker run -it -v c:\Users\federico\projects\mosaic:/opt/ml/code/ mosaic /bin/bash
+```
+docker build -t mosaic .
+docker run -it -v %CD%:/opt/ml/code/ mosaic /bin/bash
+```
 
+```
+cd /opt/ml/code/
+pip install -e .
+```
