@@ -127,7 +127,7 @@ def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10), ma
     os.remove(files[-1])
 
 if(__name__=='__main__'):
-
+    
     import datetime
     bbox = (
         46.00, 
@@ -138,15 +138,15 @@ if(__name__=='__main__'):
     
     start = datetime.datetime(2021, 10, 5)
     end = datetime.datetime(2021, 12, 7)
-    n = 5
+    n = 2
     
-    mosaic(bbox = bbox, start = start, end = end, n = n, output = './mosaic.tiff', split_shape = (4,4), mask_clouds = True)
+    mosaic(bbox = bbox, start = start, end = end, n = n, output = './mosaic.tiff', split_shape = (4,4), mask_clouds = False)
     
     import rasterio
     import matplotlib.pyplot as plt
     
     with rasterio.open('./mosaic.tiff', 'r') as file:
         bands = file.read()
-        plt.imshow(bands[[3, 2, 1], :, :].transpose((1,2,0))/3000, vmin=0, vmax=1)
+        plt.imshow(bands[[3, 2, 1], :, :].transpose((1,2,0)).clip(0, 3000)/3000, vmin=0, vmax=1)
         plt.show()
 
