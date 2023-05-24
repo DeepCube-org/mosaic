@@ -149,5 +149,5 @@ if(__name__=='__main__'):
     with rasterio.open('./mosaic.tiff', 'r') as file:
         bands = file.read()
         plt.imshow(bands[[3, 2, 1], :, :].transpose((1,2,0)).clip(0, 3000)/3000, vmin=0, vmax=1)
-        plt.show()
+        plt.savefig('./mosaic.png')
 
