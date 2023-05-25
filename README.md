@@ -33,5 +33,5 @@ pip install -e .
 
 Save your SentinelHub credentials:
 ```
-python mosaic/config_cred.py --id <SH_client_id> --secret <SH_client_secret>
+python mosaic/config_cred.py --id "<SH_client_id>" --secret "<SH_client_secret>"
 ```
