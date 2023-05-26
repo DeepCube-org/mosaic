@@ -306,7 +306,6 @@ if __name__ == '__main__':
 
     bbox = (args.minlong, args.minlat, args.maxlong, args.maxlat) 
     
-    print(args)
     mosaic(
         bbox = bbox, 
         start = args.start_date, 

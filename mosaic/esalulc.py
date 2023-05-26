@@ -124,7 +124,6 @@ if(__name__=='__main__'):
     end= args.end_date.split("/")
     end = datetime.datetime(int(end[0]), int(end[1]), int(end[2]))
 
-    print(args)
     mosaic(
         bbox = bbox, 
         start = start, 
