@@ -1,0 +1,30 @@
+mosaic.copernicusdem
+====================
+
+.. automodule:: mosaic.copernicusdem
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      download
+      mosaic
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
