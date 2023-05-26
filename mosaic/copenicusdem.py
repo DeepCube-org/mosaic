@@ -19,6 +19,7 @@ CRS = sentinelhub.CRS.WGS84
 
 def download(bbox, time_interval, output, split_shape):
 
+
     def get_image(bbox, resolution):
         size = bbox_to_dimensions(bbox, resolution=resolution)
         request = SentinelHubRequest(
@@ -43,6 +44,7 @@ def download(bbox, time_interval, output, split_shape):
         [ BBox(bbox, crs=CRS) ], crs = CRS, split_shape = split_shape
     )  # bounding box will be split into grid of rows x columns bounding boxes
 
+
     bbox_list = bbox_splitter.get_bbox_list()
     sh_requests = [get_image(bbox, RESOLUTION) for bbox in bbox_list]
     dl_requests = [request.download_list[0] for request in sh_requests]
@@ -56,7 +58,7 @@ def download(bbox, time_interval, output, split_shape):
 
 def mosaic(bbox, start, end, output, max_retry = 10, split_shape=(10,10)):
 
-    shretry(max_retry, download, bbox = bbox, time_interval=(start, end), output = output, split_shape=split_shape)
+    shretry(max_retry, download, bbox = bbox, time_interval=(start, end), output = output, split_shape = split_shape)
 
     with rasterio.open(output, 'r') as file:
         bands = file.read()

@@ -12,6 +12,7 @@ setup(
         'sentinelhub',
         'fiona',
         's2cloudless',
-        'dynamicworld @ git+https://github.com/DeepCube-org/dynamicworld.git',                  
+        'pytest',
+        'dynamicworld @ git+https://github.com/DeepCube-org/dynamicworld.git',            
     ]
 )
