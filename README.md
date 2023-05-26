@@ -28,3 +28,10 @@ docker run -it -v %CD%:/opt/ml/code/ mosaic /bin/bash
 cd /opt/ml/code/
 pip install -e .
 ```
+
+#### Usage
+
+Save your SentinelHub credentials:
+```
+python mosaic/config_cred.py --id "<SH_client_id>" --secret "<SH_client_secret>"
+```

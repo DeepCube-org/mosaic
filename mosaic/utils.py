@@ -11,10 +11,9 @@ Split a temporal interval in a set of sub interval having similar size.
 """
 def split_interval(start, end, n):
     if(n>1):
-        n_chunks = n+1
-        tdelta = (end - start) / n_chunks
-        edges = [(start + i * tdelta).date().isoformat() for i in range(n_chunks)]
-        slots = [(edges[i], edges[i + 1]) for i in range(len(edges) - 1)]
+        tdelta = (end - start) / n
+        edges = [(start + i * tdelta).date().isoformat() for i in range(n+1)]
+        slots = [(edges[i], edges[i + 1]) for i in range(len(edges)-1)]
     else:
         slots = [(start.date().isoformat(), end.date().isoformat())]
     return(slots)
@@ -23,16 +22,13 @@ def split_interval(start, end, n):
 Retry multiple time the execution of a function with a set of parameters in input.
 """
 def shretry(max_retry, fun, **args):
-    retry = 0
-    while True:
+    for attempt in range(1,max_retry+1):
         try:
             return(fun(**args))
         except Exception as e:
-            print(e)
-
-            retry = retry + 1 
-            if(retry == max_retry):
-                raise Exception('Error')
+            print(f"attempt {attempt} failed" )
+    
+    raise Exception('Execution unsuccessful')
 
 
 """

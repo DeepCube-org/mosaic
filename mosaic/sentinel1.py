@@ -165,8 +165,8 @@ def subsample(groups, n):
     return(ss_groups)
 
 
+def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10,10)):
 
-def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10)):
 
     time_interval =  [start, end]
     bbox = BBox(bbox=bbox, crs=CRS)
@@ -279,15 +279,39 @@ def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10, 10)):
 
 
 if __name__ == '__main__':
-    start = "2020-12-10"
-    end = "2021-02-01"
-    bbox = ([
-        10.81219793387203, 
-        42.86271296865057, 
-        11.104213429449025, 
-        43.1  
-    ])
 
+    import argparse
+    from argparse import ArgumentParser
+    import datetime
+    import rasterio
+    import matplotlib.pyplot as plt
+    
+    parser = ArgumentParser()
+    
+    parser.add_argument("--minlong", type=float, default=10.81219793387203, help="minimum value for longitude used to create the bounding box")
+    parser.add_argument("--minlat", type=float, default=42.86271296865057, help="minimum value for latitude used to create the bounding box")
+    parser.add_argument("--maxlong", type=float, default=11.104213429449025, help="maximum value for longitude used to create the bounding box")
+    parser.add_argument("--maxlat", type=float, default=43.1, help="maximum value for latitude used to create the bounding box")
+    
+    parser.add_argument("--start_date", type=str, default="2020-12-10", help="start date, in format year-month-day")
+    parser.add_argument("--end_date", type=str, default="2021-02-01", help="end date, in format year-month-day")
+    parser.add_argument("--time_splits", type=int, default=3, help="number of periods to use")
 
-    n = 3
-    mosaic(bbox = bbox, start = start, end = end, output = './mosaic.tiff', n = n)
+    parser.add_argument("--split_shape", type=tuple, default=(10,10), help="bounding box splits in (row,columns)")
+    parser.add_argument("--max_retry", type=int, default=10, help="maximimun number of requests for the same images")
+
+    parser.add_argument("--output", type=str, default="./mosaic.tiff", help="output path")
+    
+    args = parser.parse_args()
+
+    bbox = (args.minlong, args.minlat, args.maxlong, args.maxlat) 
+    
+    mosaic(
+        bbox = bbox, 
+        start = args.start_date, 
+        end = args.end_date, 
+        n = args.time_splits, 
+        output = args.output, 
+        max_retry=args.max_retry, 
+        split_shape=args.split_shape,
+    )

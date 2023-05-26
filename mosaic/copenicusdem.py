@@ -12,11 +12,13 @@ import numpy as np
 import datetime
 from mosaic.utils import shretry, gdal_merge
 
+
 NO_DATA = -9999
 RESOLUTION = 10
 CRS = sentinelhub.CRS.WGS84
 
-def download(bbox, time_interval, output, split_shape=(10, 10)):
+def download(bbox, time_interval, output, split_shape):
+
 
     def get_image(bbox, resolution):
         size = bbox_to_dimensions(bbox, resolution=resolution)
@@ -40,7 +42,8 @@ def download(bbox, time_interval, output, split_shape=(10, 10)):
 
     bbox_splitter = BBoxSplitter(
         [ BBox(bbox, crs=CRS) ], crs = CRS, split_shape = split_shape
-    )  # bounding box will be split into grid of 5x4 bounding boxes
+    )  # bounding box will be split into grid of rows x columns bounding boxes
+
 
     bbox_list = bbox_splitter.get_bbox_list()
     sh_requests = [get_image(bbox, RESOLUTION) for bbox in bbox_list]
@@ -78,16 +81,33 @@ def mosaic(bbox, start, end, output, max_retry = 10, split_shape=(10,10)):
 
 if(__name__=='__main__'):
     
+    from argparse import ArgumentParser
     import datetime
-    bbox = (
-        46.16, 
-        -16.15, 
-        46.51, 
-        -15.58
-    )
-
-    start = datetime.datetime(2019, 3, 1)
-    end = datetime.datetime(2019, 12, 31)
     
+    
+    parser = ArgumentParser()
+    
+    parser.add_argument("--minlong", type=float, default=46.00, help="minimum value for longitude used to create the bounding box")
+    parser.add_argument("--minlat", type=float, default=-16.15, help="minimum value for latitude used to create the bounding box")
+    parser.add_argument("--maxlong", type=float, default=46.07, help="maximum value for longitude used to create the bounding box")
+    parser.add_argument("--maxlat", type=float, default=-16.01, help="maximum value for latitude used to create the bounding box")
+    
+    parser.add_argument("--start_date", type=str, default="2019/3/1", help="start date, in format year/month/day")
+    parser.add_argument("--end_date", type=str, default="2019/12/31", help="end date, in format year/month/day")
+    
+    parser.add_argument("--split_shape", type=tuple, default=(10,10), help="bounding box splits in (row,columns)")
+    parser.add_argument("--max_retry", type=int, default=10, help="maximimun number of requests for the same images")
 
-    mosaic(bbox = bbox, start = start, end = end, output = './mosaic.tiff')
+    parser.add_argument("--output", type=str, default="./mosaic.tiff", help="output path")
+    
+    args = parser.parse_args()
+
+    bbox = (args.minlong, args.minlat, args.maxlong, args.maxlat) 
+
+    start = args.start_date.split("/")
+    start = datetime.datetime(int(start[0]), int(start[1]), int(start[2]))
+    
+    end= args.end_date.split("/")
+    end = datetime.datetime(int(end[0]), int(end[1]), int(end[2]))
+    
+    mosaic(bbox = bbox, start = start, end = end, output = args.output, max_retry=args.max_retry, split_shape=args.split_shape)
