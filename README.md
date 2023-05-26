@@ -8,7 +8,7 @@ For the generation of the Sentinel-2 L1C mosaic, the code uses the s2cloudless p
 
 s2cloudless can be slow for very big images, it would be very usefull to find a way to optimize it. I have a couple of ideas of how to do it but if someone is interested to contribute in this direction you are welcome.
 
-#### Supported layers: 
+### Supported layers: 
 
 - ESA WorldCover
 - Sentinel-1 GRD
@@ -16,8 +16,7 @@ s2cloudless can be slow for very big images, it would be very usefull to find a 
 - Copernicus DEM
 - DynamicWorld 
 
-
-#### Installation
+### Installation
 
 ```
 docker build -t mosaic .
@@ -29,9 +28,32 @@ cd /opt/ml/code/
 pip install -e .
 ```
 
-#### Usage
+### Usage
 
 Save your SentinelHub credentials:
 ```
 python mosaic/config_cred.py --id "<SH_client_id>" --secret "<SH_client_secret>"
+```
+
+Available scripts:
+```
+mosaic.sentinel1
+mosaic.sentinel2
+mosaic.dwlulc
+mosaic.esalulc
+mosaic.copernicusdem
+```
+
+Examples:
+```
+mosaic.sentinel1     --output mosaic_sentinel1.tiff
+mosaic.sentinel2     --output mosaic_sentinel2.tiff
+mosaic.dwlulc        --output mosaic_dwlulc.tiff
+mosaic.esalulc       --output mosaic_esalulc.tiff
+mosaic.copernicusdem --output mosaic_copernicusdem.tiff
+```
+
+### Tests
+```
+pytest tests/
 ```

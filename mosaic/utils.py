@@ -53,3 +53,6 @@ def gdal_merge(tiffs, bbox, output, dstnodata = None):
     os.system(command)
     os.remove(filelist)
     return(output)
+
+
+

@@ -75,39 +75,3 @@ def mosaic(bbox, start, end, output, max_retry = 10, split_shape=(10,10)):
 
         file.nodata = NO_DATA
         file.write(bands)
-
-
-
-
-if(__name__=='__main__'):
-    
-    from argparse import ArgumentParser
-    import datetime
-    
-    
-    parser = ArgumentParser()
-    
-    parser.add_argument("--minlong", type=float, default=46.00, help="minimum value for longitude used to create the bounding box")
-    parser.add_argument("--minlat", type=float, default=-16.15, help="minimum value for latitude used to create the bounding box")
-    parser.add_argument("--maxlong", type=float, default=46.07, help="maximum value for longitude used to create the bounding box")
-    parser.add_argument("--maxlat", type=float, default=-16.01, help="maximum value for latitude used to create the bounding box")
-    
-    parser.add_argument("--start_date", type=str, default="2019/3/1", help="start date, in format year/month/day")
-    parser.add_argument("--end_date", type=str, default="2019/12/31", help="end date, in format year/month/day")
-    
-    parser.add_argument("--split_shape", type=tuple, default=(10,10), help="bounding box splits in (row,columns)")
-    parser.add_argument("--max_retry", type=int, default=10, help="maximimun number of requests for the same images")
-
-    parser.add_argument("--output", type=str, default="./mosaic.tiff", help="output path")
-    
-    args = parser.parse_args()
-
-    bbox = (args.minlong, args.minlat, args.maxlong, args.maxlat) 
-
-    start = args.start_date.split("/")
-    start = datetime.datetime(int(start[0]), int(start[1]), int(start[2]))
-    
-    end= args.end_date.split("/")
-    end = datetime.datetime(int(end[0]), int(end[1]), int(end[2]))
-    
-    mosaic(bbox = bbox, start = start, end = end, output = args.output, max_retry=args.max_retry, split_shape=args.split_shape)

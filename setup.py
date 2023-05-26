@@ -14,5 +14,15 @@ setup(
         's2cloudless',
         'pytest',
         'dynamicworld @ git+https://github.com/DeepCube-org/dynamicworld.git',            
-    ]
+    ],
+    
+    entry_points = {
+        'console_scripts': [
+            'mosaic.sentinel1=scripts.command_line:sentinel1',
+            'mosaic.sentinel2=scripts.command_line:sentinel2',
+            'mosaic.dwlulc=scripts.command_line:dwlulc',
+            'mosaic.esalulc=scripts.command_line:esalulc',
+            'mosaic.copernicusdem=scripts.command_line:copernicusdem'
+        ],
+    }
 )

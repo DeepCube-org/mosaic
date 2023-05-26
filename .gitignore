@@ -170,3 +170,4 @@ test_dir
 *.jpg
 
 sentinelhub_config.py
+test_aws.py

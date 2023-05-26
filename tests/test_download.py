@@ -27,9 +27,9 @@ def test_esalulc():
 
 
 def test_copernicusdem():
-    import mosaic.copenicusdem
+    import mosaic.copernicusdem
 
-    mosaic.copenicusdem.mosaic(bbox = bbox, start = start, end = end, output = './mosaic_copernicusdem.tiff', split_shape = (4,4))
+    mosaic.copernicusdem.mosaic(bbox = bbox, start = start, end = end, output = './mosaic_copernicusdem.tiff', split_shape = (4,4))
     with rasterio.open('./mosaic_copernicusdem.tiff', 'r') as file:
         bands = file.read()
         plt.imshow(bands[0, :, :], cmap='gray')
