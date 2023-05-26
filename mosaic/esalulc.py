@@ -113,7 +113,7 @@ if(__name__=='__main__'):
     parser.add_argument("--max_retry", type=int, default=10, help="maximimun number of requests for the same images")
 
     parser.add_argument("--output", type=str, default="./mosaic.tiff", help="output path")
-    
+
     args = parser.parse_args()
 
     bbox = (args.minlong, args.minlat, args.maxlong, args.maxlat) 

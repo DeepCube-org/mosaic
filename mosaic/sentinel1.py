@@ -165,8 +165,8 @@ def subsample(groups, n):
     return(ss_groups)
 
 
-
 def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10,10)):
+
 
     time_interval =  [start, end]
     bbox = BBox(bbox=bbox, crs=CRS)
@@ -215,7 +215,7 @@ def mosaic(bbox, start, end, output, n, max_retry = 10, split_shape=(10,10)):
             
             partial_output = './image_{group_idx}_{timestamp_idx}.tiff'.format(group_idx=group_idx, timestamp_idx=timestamp_idx)
             
-            tiffs = shretry(max_retry, get_image, bbox = bbox, time_interval = (timestamp - datetime.timedelta(hours=1), timestamp + datetime.timedelta(hours=1)), resolution = RESOLUTION, split_shape=(10, 10))
+            tiffs = shretry(max_retry, get_image, bbox = bbox, time_interval = (timestamp - datetime.timedelta(hours=1), timestamp + datetime.timedelta(hours=1)), resolution = RESOLUTION, split_shape=split_shape)
             cache_files.extend(tiffs)
             
             if(len(tiffs)>1):
